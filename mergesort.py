@@ -25,7 +25,7 @@ def merge_sort(arr, l, r, b):
 def check_sort(arr, n):
     is_sorted = True
     for i in range(1, n):
-        if a[i] > arr[i+1]:
+        if arr[i] > arr[i+1]:
             is_sorted = False
         if not is_sorted:
             break

@@ -6,7 +6,7 @@ import mergesort
 import quicksort
 import heapsort
 
-sys.setrecursionlimit(10002)
+sys.setrecursionlimit(5100)
 SORT_TYPE_LENGTH = 3
 func_str = ["merge sort", "quick sort", "heap sort"]
 sort_type_str = ["random", "sorted", "reversed"]
@@ -72,7 +72,7 @@ def plot_bar_graph(sort_type_times, sizeof_data):
     plt.ylabel("time")
     plt.title(
         f"Measurement of the alignment time of each sort algorithm (data = {sizeof_data})")
-    plt.legend(["random", "sorted", "reversed"])
+    plt.legend(sort_type_str)
     plt.xticks([i for i in range(len(sort_type_times[0]))], func_str)
     plt.show()
 
@@ -86,9 +86,8 @@ def plot_bar_graph_sensitivity(sort_type_times, sizeof_data, func_str):
     plt.ylabel("time")
     plt.title(
         f"{func_str} sensitivity measurement (data = {sizeof_data})")
-    plt.legend(["random", "sorted", "reversed"])
-    plt.xticks([i for i in range(len(sort_type_times))], [
-        "random", "sort", "reverse"])
+    plt.legend(sort_type_str)
+    plt.xticks([i for i in range(len(sort_type_times))], sort_type_str)
     plt.show()
 
 
@@ -139,7 +138,7 @@ Input>> """))
             calc_time.append(sort_type_times)
         plot_bar_graph(calc_time, sizeof_data)
     else:
-        data = [5000, 6000, 7000]
+        data = [100000, 200000, 300000]
         for sort_function in func:
             sort_type_times = []
             for size in data:

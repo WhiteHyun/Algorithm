@@ -2,15 +2,17 @@ from matplotlib import pyplot as plt
 import sys
 import random
 import time
-import mergesort
 import quicksort
 import heapsort
-
+import insert_quicksort
+import mergesort
 sys.setrecursionlimit(5100)
 SORT_TYPE_LENGTH = 3
-func_str = ["merge sort", "quick sort", "heap sort"]
+func_str = ["merge sort", "quick sort",
+            "heap sort", "quict sort with insertion"]
 sort_type_str = ["random", "sorted", "reversed"]
-func = [mergesort.merge_sort, quicksort.quick_sort, heapsort.heap_sort]
+func = [mergesort.merge_sort, quicksort.quick_sort,
+        heapsort.heap_sort, insert_quicksort.quick_sort]
 RANDOM_TYPE = 1
 SORTED_TYPE = 2
 REVERSED_TYPE = 3
@@ -34,7 +36,7 @@ def calculate_sorted_times(type_num, sort_func, N):
         sort_func(arr, 1, len(arr)-1, b)
         end_time = time.time() - start_time
         check_sort(arr, N)
-    elif sort_func == quicksort.quick_sort:
+    elif sort_func == quicksort.quick_sort or sort_func == insert_quicksort.quick_sort:
         start_time = time.time()
         sort_func(arr, 1, len(arr)-1)
         end_time = time.time() - start_time
@@ -54,7 +56,10 @@ def plot_line_graph(spent_time, sorted_type, N):
     plt.xticks(N)
     plt.xlabel("size of data")
     plt.ylabel("time")
-    plt.legend(func_str)
+    if select == 8:
+        plt.legend(func_str[1::2])
+    else:
+        plt.legend(func_str)
     plt.title(
         f"Measurement of the alignment time of each sort algorithm ({sorted_type})")
     plt.show()
@@ -118,6 +123,7 @@ if __name__ == "__main__":
         5. random array
         6. sorted array
         7. reversed array
+        8. compare (quick vs quick|insertion)
 
 Input>> """))
     if select >= 1 and select <= 3:
@@ -137,7 +143,7 @@ Input>> """))
                     sorted_type, sort_function, sizeof_data))
             calc_time.append(sort_type_times)
         plot_bar_graph(calc_time, sizeof_data)
-    else:
+    elif select >= 5 and select <= 7:
         data = [100000, 200000, 300000]
         for sort_function in func:
             sort_type_times = []
@@ -146,3 +152,12 @@ Input>> """))
                     calculate_sorted_times(select-4, sort_function, size))
             calc_time.append(sort_type_times)
         plot_line_graph(calc_time, sort_type_str[select-5], data)
+    elif select == 8:
+        data = [100000, 200000, 300000]
+        for sort_function in func[1::2]:
+            sort_type_times = []
+            for size in data:
+                sort_type_times.append(
+                    calculate_sorted_times(RANDOM_TYPE, sort_function, size))
+            calc_time.append(sort_type_times)
+        plot_line_graph(calc_time, sort_type_str[RANDOM_TYPE-1], data)

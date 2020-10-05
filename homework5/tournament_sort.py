@@ -29,7 +29,7 @@ def tournament_sort(arr, n):
             else:
                 b[j] = child1
         arr[i] = b[1]  # 값 추가
-        print(b)
+        # print(b)
         # 토너먼트 우승한 값을 0으로 초기화 하는 작업
         j = 1
         while j*2 < m:
@@ -41,6 +41,12 @@ def tournament_sort(arr, n):
 
 
 if __name__ == "__main__":
-    key = [4, 6, 7, 3, 5, 1, 2]
+    N = 5000
+    # key = [4, 6, 7, 3, 5, 1, 2]
+    key = list(range(1, N+1))
+    # random.shuffle(key)
+    key.sort(reverse=True)
+    start_time = time.time()
     tournament_sort(key, len(key))
-    print(key)
+    end_time = time.time()-start_time
+    print('토너먼트 정렬(역순정렬됨)의 실행 시간 (N= %d) : %0.3f' % (N, end_time))

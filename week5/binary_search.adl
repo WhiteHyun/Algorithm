@@ -1,0 +1,12 @@
+binary_search(a[], search_key, n)
+    left ← 0;
+    right ← n-1;
+    while (right ≥ left) do {
+        mid ← (left + right) / 2;
+        if (a[mid].key = search_key) then return mid;
+        if (a[mid].key > search_key) then right ← mid - 1;
+        else left ← mid + 1;
+    }
+    return -1;  // key 값이 존재하지 않음
+end binary_search()
+

@@ -1,0 +1,8 @@
+sequential_search(a[], search_key, n)
+    i ← 0;
+    while (i < n and a[i].key ≠ search_key)
+    do { i ← i + 1; }
+    if (i = n) then return -1   //key 값이 존재하지 않음
+    else return i;
+end sequential_search()
+

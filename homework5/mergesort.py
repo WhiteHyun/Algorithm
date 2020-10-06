@@ -36,12 +36,12 @@ def check_sort(arr, n):
 
 
 if __name__ == "__main__":
-    N = 100000
+    N = 10000
     a = [None]
-    for i in range(1, N+1):
+    for i in range(N):
         a.append(random.randint(1, N))
-    b = a.copy()
     start_time = time.time()
+    b = a.copy()
     merge_sort(a, 1, N, b)
     end_time = time.time() - start_time
     print(f"합병 정렬의 실행 시간(랜덤) (N = {N} : {end_time}")

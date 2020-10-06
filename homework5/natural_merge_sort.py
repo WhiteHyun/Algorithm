@@ -37,14 +37,30 @@ def natural_merge_sort(arr: list, n: int):
     # 기존 array에 정렬 값 저장
     for i in range(1, n+1):
         arr[i] = run[0][i-1]
+    return arr
+
+
+def check_sort(arr, n):
+    is_sorted = True
+    for i in range(1, n):
+        if arr[i] > arr[i+1]:
+            is_sorted = False
+        if not is_sorted:
+            break
+    if is_sorted:
+        print("정렬 완료")
+    else:
+        print("정렬 오류 발생")
 
 
 if __name__ == "__main__":
-    N = 100000
+    N = 10000
     # key = [-1, 6, 7, 8, 3, 4, 1, 5, 9, 10, 2]
     key = list(range(1, N+1))
     random.shuffle(key)
+    key.insert(0, -1)
     start_time = time.time()
     natural_merge_sort(key, len(key)-1)
     end_time = time.time()-start_time
     print('자연합병정렬(랜덤)의 실행 시간 (N= %d) : %f' % (N, end_time))
+    check_sort(key, N)

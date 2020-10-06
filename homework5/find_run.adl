@@ -1,0 +1,13 @@
+find_run(a[], n)
+    ret_arr ← [];  //리턴할 리스트
+    part_arr ← [a[1]];    //각 런을 ret_arr에 append할 부분 리스트, 초기값 설정
+    for (i ← 2;i ≤ n; i ← i + 1) do {
+        if (a[i-1] < a[i]) then part_arr에 a[i]을 추가
+        else do {
+            ret_arr에 part_arr을 추가
+            part_arr ← [a[i]]
+        }
+    }
+    ret_arr에 part_arr을 추가
+    return ret_arr;
+end find_run()

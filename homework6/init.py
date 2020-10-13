@@ -39,7 +39,7 @@ class Tree(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def check(self, key_list: list) -> None:
+    def check(self, key_list: list, time: float) -> None:
         """
         트리가 정확하게 구축되었는지 확인하여 출력해주는 메서드입니다.
         """

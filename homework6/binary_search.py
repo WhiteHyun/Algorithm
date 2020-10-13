@@ -21,7 +21,7 @@ class BinarySearch(Tree):
         else:
             p.right = x
 
-    def check(self, key_list: list) -> None:
+    def check(self, key_list: list, time: float) -> None:
         """
         Tree의 추상메서드입니다.
         이진탐색트리에서는 check를 사용하지 않습니다.

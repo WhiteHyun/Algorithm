@@ -64,20 +64,17 @@ class Dict:
 
     def rotate(self, v: int, y: node):
         # c: y의 자식 노드, gc: y의 손주 노드
-        c = gc = self.z
-        if y.left.color == RED:
+        c = gc = node
+        if y.key > v:
             c = y.left
         else:
             c = y.right
-        if c.left.color == RED:
+        if c.key > v:
             gc = c.left
-        else:
-            gc = c.right
-
-        if c.left == gc:
             c.left = gc.right
             gc.right = c
-        elif c.right == gc:
+        else:
+            gc = c.right
             c.right = gc.left
             gc.left = c
 
@@ -89,22 +86,21 @@ class Dict:
 
 
 if __name__ == "__main__":
-    # N = 20000
-    # key = list(range(1, N+1))
-    # s_key = list(range(1, N+1))
-    # random.shuffle(key)
+    N = 20000
+    key = list(range(1, N+1))
+    s_key = list(range(1, N+1))
+    random.shuffle(key)
     d = Dict()
-    key = [66, 78, 80, 25, 20, 61, 19, 30, 34, 32, 71]
+    # key = [66, 78, 80, 25, 20, 61, 19, 30, 34, 32, 71]
     for i in key:
         d.insert(i)
 
-    # start_time = time.time()
-    # for i in s_key:
-    #     result = d.search(i)
-    #     if result == -1 or result != i:
-    #         print('탐색 오류')
-    # end_time = time.time()-start_time
+    start_time = time.time()
+    for i in s_key:
+        result = d.search(i)
+        if result == -1 or result != i:
+            print('탐색 오류')
+    end_time = time.time()-start_time
 
-    # print('레드-블랙 트리 탐색(랜덤)의 실행 시간 (N= %d) : %0.3f' % (N, end_time))
-    print('탐색 완료')
+    print('레드-블랙 트리 탐색(랜덤)의 실행 시간 (N= %d) : %0.3f' % (N, end_time))
     print('탐색 완료')

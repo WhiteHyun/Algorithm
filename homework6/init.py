@@ -7,20 +7,25 @@ FAIL = -1
 
 
 class node:
-    def __init__(self, key: int, left, right, color: bool = BLACK) -> None:
+    def __init__(self, key: int, left, right, color: bool = BLACK, height: int = 0) -> None:
         self.key = key
         self.left = left
         self.right = right
         self.color = color
+        self.height = height
 
 
 class Tree(metaclass=ABCMeta):
+    """
+    트리의 기본적인 형태를 담당하는 클래스입니다.
+    """
+
     def __init__(self) -> None:
         self.z = node(0, left=node, right=node)
         self.z.left = self.z.right = self.z
         self.head = node(0, left=self.z, right=self.z)
 
-    def search(self, search_key) -> int:
+    def search(self, search_key: int) -> int:
         x: node = self.head.right
         while x != self.z:
             if x.key == search_key:

@@ -26,4 +26,4 @@ class BinarySearch(Tree):
         Tree의 추상메서드입니다.
         이진탐색트리에서는 check를 사용하지 않습니다.
         """
-        return True
+        return

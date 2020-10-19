@@ -11,21 +11,21 @@ class AVL(Tree):
         self.height = 0
         self.balance = 0
 
-    def search(self, searchKey):
+    def search(self, search_key: int) -> int:
         x = self.node
         while x is not None:
-            if x.key == searchKey:
-                return searchKey
-            if x.key > searchKey:
+            if x.key == search_key:
+                return search_key
+            if x.key > search_key:
                 x = x.left.node
             else:
                 x = x.right.node
         return -1
 
-    def insert(self, key):
+    def insert(self, key: int) -> None:
         x = self.node
         if x is None:
-            self.node = node(key, None, None)
+            self.node = node(key, left=None, right=None)
             self.node.left = AVL()
             self.node.right = AVL()
 
@@ -35,27 +35,27 @@ class AVL(Tree):
         else:
             self.node.right.insert(key)
 
-        self.checkBalance()
+        self.__check_balance()
 
-    def checkBalance(self):
-        self.updateHeight(False)
-        self.updateBalance(False)
+    def __check_balance(self) -> None:
+        self.__update_height(False)
+        self.__update_balance(False)
 
         while self.balance < -1 or self.balance > 1:
             if self.balance > 1:
                 if self.node.left.balance < 0:
-                    self.node.left.rotateLeft()
-                self.rotateRight()
+                    self.node.left.__rotate_left()
+                self.__rotate_right()
 
             else:
                 if self.node.right.balance > 0:
-                    self.node.right.rotateRight()
-                self.rotateLeft()
+                    self.node.right.__rotate_right()
+                self.__rotate_left()
 
-            self.updateHeight()
-            self.updateBalance()
+            self.__update_height()
+            self.__update_balance()
 
-    def rotateRight(self):
+    def __rotate_right(self) -> None:
         g = self.node
         p = g.left.node
         x = p.right.node
@@ -64,7 +64,7 @@ class AVL(Tree):
         p.right.node = g
         g.left.node = x
 
-    def rotateLeft(self):
+    def __rotate_left(self) -> None:
         g = self.node
         p = g.right.node
         x = p.left.node
@@ -73,26 +73,26 @@ class AVL(Tree):
         p.left.node = g
         g.right.node = x
 
-    def updateHeight(self, recurse=True):
+    def __update_height(self, recurse=True) -> None:
         if self.node is not None:
             if recurse:
                 if self.node.left is not None:
-                    self.node.left.updateHeight()
+                    self.node.left.__update_height()
                 if self.node.right is not None:
-                    self.node.right.updateHeight()
+                    self.node.right.__update_height()
             self.height = max(self.node.left.height,
                               self.node.right.height) + 1
 
         else:
             self.height = 0
 
-    def updateBalance(self, recurse=True):
+    def __update_balance(self, recurse=True) -> None:
         if self.node is not None:
             if recurse:
                 if self.node.left is not None:
-                    self.node.left.updateBalance()
+                    self.node.left.__update_balance()
                 if self.node.right is not None:
-                    self.node.right.updateBalance()
+                    self.node.right.__update_balance()
             self.balance = self.node.left.height - self.node.right.height
         else:
             self.balance = 0

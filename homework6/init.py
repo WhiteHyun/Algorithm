@@ -7,12 +7,11 @@ FAIL = -1
 
 
 class node:
-    def __init__(self, key: int, left, right, color: bool = BLACK, height: int = 0) -> None:
+    def __init__(self, key: int, left, right, color: bool = BLACK) -> None:
         self.key = key
         self.left = left
         self.right = right
         self.color = color
-        self.height = height
 
 
 class Tree(metaclass=ABCMeta):

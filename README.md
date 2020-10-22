@@ -1,4 +1,4 @@
-# Algorithm codes for Algorithm classes in INU
+# Python codes for Algorithm classes in INU
 
 ## 소개 및 설명
 

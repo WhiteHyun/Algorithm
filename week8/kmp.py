@@ -25,21 +25,25 @@ class KMP():
             pos1, pos2 (int, int): 재시작 위치를 구하기 위해 패턴의 인덱스로 적용되는 변수입니다.    
         """
         p_len: int = len(self.pattern)
-        next: list = [-1 for _ in range(p_len)]
+        next: list = [-1] * p_len
         pos1, pos2 = 1, 0
         for i in range(1, p_len):
+            # 재시작 위치 알고리즘 수행
             next[i] = pos2
             if self.pattern[pos1] != self.pattern[pos2]:
                 pos2 = 0
             else:
                 pos2 += 1
             pos1 += 1
+            # 개선된 유한 상태 장치 구현
+            if self.pattern[i] == self.pattern[next[i]]:
+                next[i] = next[next[i]]
         return next
 
 
 # 시간복잡도 O(M+N)
 if __name__ == "__main__":
-    pattern = "abcabcabc"
+    pattern = "abracadabra"
     text = "bbaabcabcabcab"
     d = KMP(pattern, text)
     print(f"pattern: {pattern}")

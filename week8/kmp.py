@@ -40,11 +40,29 @@ class KMP():
                 next[i] = next[next[i]]
         return next
 
+    def search(self) -> None:
+        """
+        KMP 알고리즘을 이용하여 패턴을 탐색하는 함수입니다.
+        """
+        i, j = 0, 0
+        p_len: int = len(self.pattern)
+        t_len: int = len(self.text)
+        while j < p_len and i < t_len:
+            while j >= 0 and self.text[i] != self.pattern[j]:
+                j = self.next[j]
+            i += 1
+            j += 1
+        if j == p_len:
+            return i - p_len
+        else:
+            return i
+
 
 # 시간복잡도 O(M+N)
 if __name__ == "__main__":
     pattern = "abracadabra"
-    text = "bbaabcabcabcab"
+    text = "bbaabcababracadabracabcababracadabra"
     d = KMP(pattern, text)
     print(f"pattern: {pattern}")
     print(f"next: {d.next}")
+    print(f"처음으로 발견된 패턴의 인덱스 위치는 {d.search()}")

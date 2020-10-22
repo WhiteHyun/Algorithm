@@ -1,42 +1,46 @@
 class KMP():
     """
-    KMP 스트링 처리 알고리즘 입니다.
+    KMP 스트링 처리 알고리즘 입니다. 스트링 탐색에 사용됩니다.
+
+    Attribute:
+        text (str): 패턴을 검색할 때 사용되는 문자열입니다.
+        pattern (str): text에서 값을 검색하기 위해 사용되는 문자열입니다.
+        next (list): text에서 pattern을 검색할 때, 검색에 실패할 경우 그 당시 pattern의 인덱스의 값을 참조하여
+                     next 값에 따라 pattern의 위치를 옮겨주는 역할을 수행합니다.
     """
 
-    def __init__(self, p: str, t: str) -> None:
-        M = len(p)  # 패턴의 길이
-        N = len(t)  # 텍스트의 길이
-        self.next = self.__init_next(p, M)
-        i, j = 0, 0
-        while j < M and i < N:
-            while j >= 0 and t[i] != p[j]:
-                j = self.next[j]
-            i += 1
-            j += 1
-        if j == M:
-            self.answer = i-M
-        else:
-            self.answer = i
+    def __init__(self, pattern: str, text: str) -> None:
+        self.pattern: str = pattern
+        self.text: str = text
+        self.next: list = self.__make_next()
 
-    def __init_next(self, p: str, M: int) -> list:
-        next = list(range(M))
-        next[0] = -1
-        print(f"text: '{p}'")
-        i, j = 0, -1
-        while i < M:
-            next[i] = j
-            while j >= 0 and p[i] != p[j]:
-                j = next[j]
-            i += 1
-            j += 1
-        print(f"next[before]: {next}")
+    def __make_next(self) -> list:
+        """
+        패턴을 가지고 스트링 검색에 이용할 next 를 구하는 함수입니다.
+        재시작 위치 알고리즘 수행 후 개선된 유한 상태 장치를 구하여 리턴합니다.
+
+        Variable:
+            p_len (int): 패턴의 길이입니다.
+            next (list): 클래스의 속성으로 리턴될 리스트 변수입니다.
+            pos1, pos2 (int, int): 재시작 위치를 구하기 위해 패턴의 인덱스로 적용되는 변수입니다.    
+        """
+        p_len: int = len(self.pattern)
+        next: list = [-1 for _ in range(p_len)]
+        pos1, pos2 = 1, 0
+        for i in range(1, p_len):
+            next[i] = pos2
+            if self.pattern[pos1] != self.pattern[pos2]:
+                pos2 = 0
+            else:
+                pos2 += 1
+            pos1 += 1
         return next
 
 
 # 시간복잡도 O(M+N)
 if __name__ == "__main__":
-    pattern = "bbaabcabcabcab"
-    text = "abcabcabc"
+    pattern = "abcabcabc"
+    text = "bbaabcabcabcab"
     d = KMP(pattern, text)
-    for i in range(1, len(d.next)):
-        print(d.next[i], end=' ')
+    print(f"pattern: {pattern}")
+    print(f"next: {d.next}")

@@ -42,6 +42,27 @@ class DigitalSearch(Tree):
             return -1  # FAIL
         return 0  # Success
 
+    def search(self, search_key: int) -> int:
+        """
+        각 트리에 따른 탐색 함수입니다.
+
+        Args:
+
+            search_key (int): 트리 내에서 탐색할 key 값입니다.
+
+        Returns:
+            0: Success
+            -1: Search Failed
+            -2: Search Error
+        """
+        pass
+
+    def check(self, key_list: list, time: float) -> None:
+        """
+        트리가 정확하게 구축되었는지 확인하여 출력해주는 메서드입니다.
+        """
+        pass
+
 
 if __name__ == "__main__":
     d = DigitalSearch()

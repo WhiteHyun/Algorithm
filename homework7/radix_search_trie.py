@@ -18,14 +18,14 @@ class RadixSearchTrie(Tree):
             key (int): 노드의 key값을 넣기 위한 파라미터입니다.
 
         Returns:
-            0 : Success
-            -1 : Fail
+            0: Success
+            -2: Error
         """
+        x: Node = self.head.right  # 비교노드
+        p_node: Node = self.head    # 부모노드
+        temp_node: Node = Node(key)  # Insert할 임시 노드
+        h: int = 0  # 노드간 height 또는 이진수 인덱스
         try:
-            x: Node = self.head.right  # 비교노드
-            p_node: Node = self.head    # 부모노드
-            temp_node: Node = Node(key)  # Insert할 임시 노드
-            h: int = 0  # 노드간 height 또는 비트의 인덱스
             # 값이 존재하지 않거나 내부노드인 경우만 반복하여 넣을 공간을 찾아감
             while x is not None and x.key == INTERNAL_NODE_VALUE:
                 p_node = x
@@ -69,8 +69,44 @@ class RadixSearchTrie(Tree):
                     p_node.right = x
                     p_node.left = temp_node
         except:
-            return -1  # FAIL
+            return -2  # FAIL
         return 0  # Success
+
+    def search(self, search_key: int) -> int:
+        """
+        탐색 함수입니다.
+
+        Args:
+
+            search_key (int): 트리 내에서 탐색할 key 값입니다.
+
+        Returns:
+            0: Success
+            -1: Search Failed
+            -2: Search Error
+        """
+        # 탐색키의 5자리 이진수 문자열
+        bin_search_key: str = Node.key_to_bin(Node, search_key)
+        x: Node = self.head.right   # 탐색노드
+        p_node: Node = self.head  # 탐색노드의 부모노드
+        h: int = 0  # 이진수 인덱스 내지는 트리 높이를 가리킴
+        try:
+            # 내부 노드를 벗어날 때까지 이동
+            while x.key == INTERNAL_NODE_VALUE:
+                p_node = x
+                if bin_search_key[h] == "1":
+                    x = x.right
+                else:
+                    x = x.left
+                h += 1
+            if x.key == search_key:
+                return x.key
+        except:
+            return -2  # Fail
+        return -1  # Cannot Found key
+
+    def check(self, key_list: list, time: float) -> None:
+        return None
 
 
 if __name__ == "__main__":
@@ -78,5 +114,13 @@ if __name__ == "__main__":
     keys = [1, 19, 5, 18, 3, 26, 9]
     for i in keys:
         result = d.insert(i)
-        if result == -1:
+        if result == -2:
             print(f'오류! key = {i}')
+    for i in keys:
+        result = d.search(i)
+        if result == -2:
+            print("탐색오류발생")
+        elif result == -1:
+            print("탐색실패")
+        else:
+            print(f"탐색성공, key = {result}")

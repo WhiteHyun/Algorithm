@@ -23,18 +23,18 @@ class DigitalSearch(Tree):
             x: Node = self.head.right
             p_node: Node = self.head
             temp_node: Node = Node(key)
-            i: int = 0
+            i: int = -1
             while x is not None:
                 p_node = x
-                if temp_node.bits[i] == "1":
+                if temp_node.binkey[i] == "1":
                     x = x.right
                 else:
                     x = x.left
-                i += 1
-            if i == 0:
+                i -= 1
+            if i == -1:
                 p_node.right = temp_node
             else:
-                if temp_node.bits[i-1] == "1":
+                if temp_node.binkey[i+1] == "1":
                     p_node.right = temp_node
                 else:
                     p_node.left = temp_node

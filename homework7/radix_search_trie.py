@@ -24,18 +24,18 @@ class RadixSearchTrie(Tree):
         x: Node = self.head.right  # 비교노드
         p_node: Node = self.head    # 부모노드
         temp_node: Node = Node(key)  # Insert할 임시 노드
-        h: int = 0  # 노드간 height 또는 이진수 인덱스
+        h: int = -1  # 이진수 인덱스
         try:
             # 값이 존재하지 않거나 내부노드인 경우만 반복하여 넣을 공간을 찾아감
             while x is not None and x.key == INTERNAL_NODE_VALUE:
                 p_node = x
-                if temp_node.bits[h] == "1":
+                if temp_node.binkey[h] == "1":
                     x = x.right
                 else:
                     x = x.left
-                h += 1
+                h -= 1
             # 첫 번째 노드를 넣을 경우
-            if h == 0 and x is None:
+            if h == -1 and x is None:
                 p_node.right = temp_node
             # 단독으로 노드를 넣을 경우
             elif x is None:
@@ -53,16 +53,16 @@ class RadixSearchTrie(Tree):
                     p_node.left = internal_node
                 p_node = internal_node
                 # 기존에 존재하던 노드와 넣을 노드간 비트 비교를 통해 내부노드를 따라 내려갈지 아닐지를 결정한다.
-                while x.bits[h] == temp_node.bits[h]:
+                while x.binkey[h] == temp_node.binkey[h]:
                     internal_node = Node(INTERNAL_NODE_VALUE)
-                    if temp_node.bits[h] == "1":
+                    if temp_node.binkey[h] == "1":
                         p_node.right = internal_node
                     else:
                         p_node.left = internal_node
                     p_node = internal_node
-                    h += 1
+                    h -= 1
                 # 경쟁이 끝났다면 각 비트에 따라 자식노드로 넣어준다
-                if temp_node.bits[h] == "1":
+                if temp_node.binkey[h] == "1":
                     p_node.right = temp_node
                     p_node.left = x
                 else:

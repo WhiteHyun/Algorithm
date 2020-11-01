@@ -1,3 +1,4 @@
+import time
 from init import *
 
 
@@ -55,13 +56,44 @@ class DigitalSearch(Tree):
             -1: Search Failed
             -2: Search Error
         """
-        pass
+        try:
+            x = self.head.right
+            bin_skey = Node.key_to_bin(Node, search_key)[::-1]
+            i = len(bin_skey)-1
+            while x is not None:
+                if x.key == search_key:
+                    return x.key
+                if bin_skey[i] == "1":
+                    x = x.right
+                else:
+                    x = x.left
+                i -= 1
+        except:
+            return ERROR
+        return FAIL
 
     def check(self, key_list: list, time: float) -> None:
         """
         트리가 정확하게 구축되었는지 확인하여 출력해주는 메서드입니다.
         """
-        pass
+        print("=================================================================")
+        print(key_list)
+        for key in sorted(key_list):
+            p = x = self.head.right
+            bin_key = Node.key_to_bin(Node, key)[::-1]
+            for i in range(len(bin_key)-1, -1, -1):
+                if x.key == key:
+                    print(f"key: {x.key}, parents: {p.key}")
+                    break
+                p = x
+                if bin_key[i] == "1":
+                    x = x.right
+                else:
+                    x = x.left
+
+        print(f"""디지털 탐색 트리의 실행 시간 (N = {len(key_list)}: {time:.3f})
+탐색 완료
+=================================================================""")
 
 
 if __name__ == "__main__":
@@ -69,3 +101,8 @@ if __name__ == "__main__":
     keys = [1, 19, 5, 18, 3, 26, 9]
     for i in keys:
         d.insert(i)
+    start_time = time.time()
+    for i in keys:
+        d.search(i)
+    end_time = time.time() - start_time
+    d.check(keys, end_time)

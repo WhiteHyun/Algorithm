@@ -1,6 +1,9 @@
 from abc import ABCMeta, abstractmethod
 
 maxb = 5
+ERROR = -2
+FAIL = -1
+SUCCESS = 0
 
 
 class Node:
@@ -75,7 +78,7 @@ class Node:
 
     @compare.setter
     def compare(self, compare):
-        self.__binkey = compare
+        self.__compare = compare
 
     def key_to_bin(self, key: int) -> str:
         """

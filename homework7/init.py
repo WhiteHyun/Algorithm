@@ -34,7 +34,7 @@ class Node:
         self.__key = key
         self.__left = left
         self.__right = right
-        self.__binkey = self.key_to_bin(key)
+        self.__binkey = self.key_to_bin(key)[::-1]
         self.__compare = compare
 
     @property

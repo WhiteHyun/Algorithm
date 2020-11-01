@@ -39,8 +39,8 @@ class DigitalSearch(Tree):
                 else:
                     p_node.left = temp_node
         except:
-            return -1  # FAIL
-        return 0  # Success
+            return ERROR
+        return SUCCESS
 
     def search(self, search_key: int) -> int:
         """

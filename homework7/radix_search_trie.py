@@ -69,8 +69,8 @@ class RadixSearchTrie(Tree):
                     p_node.right = x
                     p_node.left = temp_node
         except:
-            return -2  # FAIL
-        return 0  # Success
+            return ERROR
+        return SUCCESS
 
     def search(self, search_key: int) -> int:
         """
@@ -102,8 +102,8 @@ class RadixSearchTrie(Tree):
             if x.key == search_key:
                 return x.key
         except:
-            return -2  # Fail
-        return -1  # Cannot Found key
+            return ERROR
+        return FAIL
 
     def check(self, key_list: list, time: float) -> None:
         return None

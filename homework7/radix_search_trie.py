@@ -1,5 +1,5 @@
 from init import *
-
+import time
 INTERNAL_NODE_VALUE = -1
 
 
@@ -106,7 +106,27 @@ class RadixSearchTrie(Tree):
         return FAIL
 
     def check(self, key_list: list, time: float) -> None:
-        return None
+        print("=================================================================")
+        print(key_list)
+        for key in sorted(key_list):
+            print(key, end=" ")
+            p = x = self.head.right
+            bin_key = Node.key_to_bin(Node, key)[::-1]
+            for i in range(len(bin_key)-1, -2, -1):
+                if x.key == key:
+                    print()
+                    break
+                p = x
+                if bin_key[i] == "1":
+                    x = x.right
+                    print("right", end=" ")
+                else:
+                    x = x.left
+                    print("left", end=" ")
+
+        print(f"""기수 탐색 트라이의 실행 시간 (N = {len(key_list)}: {time:.3f})
+탐색 완료
+=================================================================""")
 
 
 if __name__ == "__main__":
@@ -116,11 +136,14 @@ if __name__ == "__main__":
         result = d.insert(i)
         if result == -2:
             print(f'오류! key = {i}')
+    start_time = time.time()
     for i in keys:
         result = d.search(i)
-        if result == -2:
-            print("탐색오류발생")
-        elif result == -1:
-            print("탐색실패")
-        else:
-            print(f"탐색성공, key = {result}")
+        # if result == -2:
+        #     print("탐색오류발생")
+        # elif result == -1:
+        #     print("탐색실패")
+        # else:
+        #     print(f"탐색성공, key = {result}")
+    end_time = time.time() - start_time
+    d.check(keys, end_time)

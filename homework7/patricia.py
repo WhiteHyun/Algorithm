@@ -1,4 +1,6 @@
 from init import *
+import time
+import random
 
 
 class Patricia(Tree):
@@ -31,7 +33,7 @@ class Patricia(Tree):
 
         Returns:
             0 : Success
-            -1 : Fail
+            -2 : Fail
         """
         p: Node = self.head
         x: Node = p.right
@@ -76,8 +78,8 @@ class Patricia(Tree):
             else:
                 p.left = temp_node
         except:
-            return -2  # FAIL
-        return 0  # Success
+            return ERROR
+        return SUCCESS
 
     def search(self, search_key: int) -> int:
         """
@@ -112,13 +114,33 @@ class Patricia(Tree):
         """
         트리가 정확하게 구축되었는지 확인하여 출력해주는 메서드입니다.
         """
-        pass
+        print("=================================================================")
+        print(key_list)
+        for key in sorted(key_list):
+            p = x = self.head.right
+            bin_key = Node.key_to_bin(Node, key)[::-1]
+            for i in range(len(bin_key)-1, -1, -1):
+                if x.key == key:
+                    print(f"key: {x.key}, parents: {p.key}")
+                    break
+                p = x
+                if bin_key[i] == "1":
+                    x = x.right
+                else:
+                    x = x.left
+
+        print(f"""패트리샤 트리의 실행 시간 (N = {len(key_list)}: {time:.3f})
+탐색 완료
+=================================================================""")
 
 
 if __name__ == "__main__":
     d = Patricia()
     keys = [1, 19, 5, 18, 3, 26, 9]
     for i in keys:
-        print(d.insert(i))
+        d.insert(i)
+    start_time = time.time()
     for i in keys:
-        print(d.search(i))
+        d.search(i)
+    end_time = time.time() - start_time
+    d.check(keys, end_time)

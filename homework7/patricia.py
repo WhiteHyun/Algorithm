@@ -7,6 +7,20 @@ class Patricia(Tree):
     Tree를 상속받습니다. Tree에 대한 정보는 Tree.__doc__ 명령어를 사용해주세요.
     """
 
+    def __init__(self) -> None:
+        super().__init__()
+        self.head.left = self.head
+        self.head.right = self.head
+
+    def __bitcmp(self, binary: str, bit: int, cmp_num: str) -> bool:
+        # 헤드노드일 경우 True 리턴
+        if bit == maxb:
+            return True
+        elif binary[bit] == cmp_num:
+            return True
+        else:
+            return False
+
     def insert(self, key: int) -> int:
         """
         노드를 넣는 함수입니다.
@@ -19,10 +33,50 @@ class Patricia(Tree):
             0 : Success
             -1 : Fail
         """
+        p: Node = self.head
+        x: Node = p.right
+        temp_node: Node = Node(key)
+        i: int = maxb - 1
         try:
-            pass
+            # 비교인덱스(compare)만을 비교하며 트리를 따라 내려가는 반복문
+            # upward link를 만날 때 까지 반복
+            while p.compare > x.compare:
+                p = x
+                if self.__bitcmp(temp_node.binkey, x.compare, "1"):
+                    x = x.right
+                else:
+                    x = x.left
+            # 같은 키 값을 가지는 경우 단순 리턴
+            if temp_node.key == x.key:
+                return -1
+            # 비교할 때 비트가 다른 부분을 찾는 과정
+            while self.__bitcmp(x.binkey, i, "1") == self.__bitcmp(temp_node.binkey, i, "1"):
+                i -= 1
+
+            p = self.head
+            x = p.right
+            # 노드 연결 과정
+            while p.compare > x.compare and x.compare > i:
+                p = x
+                if self.__bitcmp(temp_node.binkey, x.compare, "1"):
+                    x = x.right
+                else:
+                    x = x.left
+
+            temp_node.compare = i
+            if self.__bitcmp(temp_node.binkey, temp_node.compare, "1"):
+                temp_node.left = x
+                temp_node.right = temp_node
+            else:
+                temp_node.left = temp_node
+                temp_node.right = x
+
+            if self.__bitcmp(temp_node.binkey, p.compare, "1"):
+                p.right = temp_node
+            else:
+                p.left = temp_node
         except:
-            return -1  # FAIL
+            return -2  # FAIL
         return 0  # Success
 
     def search(self, search_key: int) -> int:
@@ -38,7 +92,21 @@ class Patricia(Tree):
             -1: Search Failed
             -2: Search Error
         """
-        pass
+        p: Node = self.head
+        x: Node = p.right
+        bin_skey = Node.key_to_bin(Node, search_key)[::-1]
+        try:
+            while p.compare > x.compare:
+                p = x
+                if self.__bitcmp(bin_skey, x.compare, "1"):
+                    x = x.right
+                else:
+                    x = x.left
+            if search_key != x.key:
+                return FAIL
+        except:
+            return ERROR
+        return x.key
 
     def check(self, key_list: list, time: float) -> None:
         """
@@ -51,4 +119,6 @@ if __name__ == "__main__":
     d = Patricia()
     keys = [1, 19, 5, 18, 3, 26, 9]
     for i in keys:
-        d.insert(i)
+        print(d.insert(i))
+    for i in keys:
+        print(d.search(i))

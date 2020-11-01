@@ -89,8 +89,8 @@ def match(t):
     N = len(t) - 1
     state = next1[0]
     dq.insertLast(scan)
-    dq.prDq()
     while (state):
+        dq.prDq()
         if (state == scan):
             j += 1
             if (dq.isEmpty()):
@@ -111,7 +111,6 @@ def match(t):
         state = dq.deleteFirst()
         if (dq.checkDq()):
             state = dq.deleteFirst()
-        dq.prDq()
 
     return j-1
 

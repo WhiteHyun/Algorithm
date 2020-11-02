@@ -1,7 +1,7 @@
 import time
 import random
 
-maxb = 15
+maxb = 17
 
 
 class bitskey:
@@ -86,8 +86,8 @@ class Dict:
 
 
 if __name__ == "__main__":
-    N = 30000
-    maxb = 15
+    N = 300000
+    maxb = 19
     key = list(range(1, N+1))
     s_key = list(range(1, N+1))
     random.shuffle(key)
@@ -102,4 +102,4 @@ if __name__ == "__main__":
         if result.get() == -1 or result.get() != s_key[i]:
             print('탐색 오류')
     end_time = time.time() - start_time
-    print(f'교수님 기수 탐색 트라이의 실행시간 N = {N} : {end_time:.3f}')
+    print(f'기수 탐색 트라이의 실행시간 N = {N} : {end_time:.3f}')

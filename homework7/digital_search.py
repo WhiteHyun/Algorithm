@@ -8,6 +8,9 @@ class DigitalSearch(Tree):
     Tree를 상속받습니다. Tree에 대한 정보는 Tree.__doc__ 명령어를 사용해주세요.
     """
 
+    def __init__(self, data_size) -> None:
+        super().__init__(data_size)
+
     def insert(self, key: int) -> int:
         """
         디지털 탐색 트리에서 노드를 넣는 함수입니다.
@@ -23,7 +26,7 @@ class DigitalSearch(Tree):
         try:
             x: Node = self.head.right
             p_node: Node = self.head
-            temp_node: Node = Node(key)
+            temp_node: Node = Node(key, self.maxb)
             i: int = -1
             while x is not None:
                 p_node = x
@@ -58,7 +61,7 @@ class DigitalSearch(Tree):
         """
         try:
             x = self.head.right
-            bin_skey = Node.key_to_bin(Node, search_key)[::-1]
+            bin_skey = self.head.key_to_bin(search_key)[::-1]
             i = len(bin_skey)-1
             while x is not None:
                 if x.key == search_key:
@@ -80,7 +83,7 @@ class DigitalSearch(Tree):
         print(key_list)
         for key in sorted(key_list):
             p = x = self.head.right
-            bin_key = Node.key_to_bin(Node, key)[::-1]
+            bin_key = self.head.key_to_bin(key)[::-1]
             for i in range(len(bin_key)-1, -1, -1):
                 if x.key == key:
                     print(f"key: {x.key}, parents: {p.key}")
@@ -97,7 +100,7 @@ class DigitalSearch(Tree):
 
 
 if __name__ == "__main__":
-    d = DigitalSearch()
+    d = DigitalSearch(26)
     keys = [1, 19, 5, 18, 3, 26, 9]
     for i in keys:
         d.insert(i)
@@ -106,3 +109,15 @@ if __name__ == "__main__":
         d.search(i)
     end_time = time.time() - start_time
     d.check(keys, end_time)
+# if __name__ == "__main__":
+#     data = 30000
+#     d = DigitalSearch(data)
+#     keys = list(range(1, data+1))
+#     for i in keys:
+#         d.insert(i)
+#     start_time = time.time()
+#     for i in keys:
+#         if d.search(i) != i:
+#             print("error")
+#     end_time = time.time() - start_time
+#     print(f'내 디지털 탐색 트리 코드(N= {data}) : {end_time:.3f}')

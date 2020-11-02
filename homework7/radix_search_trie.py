@@ -1,5 +1,5 @@
-from init import *
 import time
+from init import *
 INTERNAL_NODE_VALUE = -1
 
 
@@ -8,6 +8,9 @@ class RadixSearchTrie(Tree):
     탐색 알고리즘 중 기수 탐색 트라이에 해당하는 클래스입니다.
     Tree를 상속받습니다. Tree에 대한 정보는 Tree.__doc__ 명령어를 사용해주세요.
     """
+
+    def __init__(self, data_size) -> None:
+        super().__init__(data_size)
 
     def insert(self, key: int) -> int:
         """
@@ -23,7 +26,7 @@ class RadixSearchTrie(Tree):
         """
         x: Node = self.head.right  # 비교노드
         p_node: Node = self.head    # 부모노드
-        temp_node: Node = Node(key)  # Insert할 임시 노드
+        temp_node: Node = Node(key, self.maxb)  # Insert할 임시 노드
         h: int = -1  # 이진수 인덱스
         try:
             # 값이 존재하지 않거나 내부노드인 경우만 반복하여 넣을 공간을 찾아감
@@ -46,7 +49,7 @@ class RadixSearchTrie(Tree):
             # 존재하고있는 key값과 경쟁을 하는 경우
             else:
                 # 먼저 내부노드를 설정하여 부모노드와 연결한다.
-                internal_node = Node(INTERNAL_NODE_VALUE)
+                internal_node = Node(INTERNAL_NODE_VALUE, self.maxb)
                 if p_node.right == x:
                     p_node.right = internal_node
                 else:
@@ -54,7 +57,7 @@ class RadixSearchTrie(Tree):
                 p_node = internal_node
                 # 기존에 존재하던 노드와 넣을 노드간 비트 비교를 통해 내부노드를 따라 내려갈지 아닐지를 결정한다.
                 while x.binkey[h] == temp_node.binkey[h]:
-                    internal_node = Node(INTERNAL_NODE_VALUE)
+                    internal_node = Node(INTERNAL_NODE_VALUE, self.maxb)
                     if temp_node.binkey[h] == "1":
                         p_node.right = internal_node
                     else:
@@ -86,7 +89,7 @@ class RadixSearchTrie(Tree):
             -2: Search Error
         """
         # 탐색키의 5자리 이진수 문자열
-        bin_search_key: str = Node.key_to_bin(Node, search_key)
+        bin_search_key: str = self.head.key_to_bin(search_key)
         x: Node = self.head.right   # 탐색노드
         p_node: Node = self.head  # 탐색노드의 부모노드
         h: int = 0  # 이진수 인덱스 내지는 트리 높이를 가리킴
@@ -111,7 +114,7 @@ class RadixSearchTrie(Tree):
         for key in sorted(key_list):
             print(key, end=" ")
             p = x = self.head.right
-            bin_key = Node.key_to_bin(Node, key)[::-1]
+            bin_key = self.head.key_to_bin(key)[::-1]
             for i in range(len(bin_key)-1, -2, -1):
                 if x.key == key:
                     print()
@@ -130,7 +133,7 @@ class RadixSearchTrie(Tree):
 
 
 if __name__ == "__main__":
-    d = RadixSearchTrie()
+    d = RadixSearchTrie(26)
     keys = [1, 19, 5, 18, 3, 26, 9]
     for i in keys:
         result = d.insert(i)
@@ -147,3 +150,16 @@ if __name__ == "__main__":
         #     print(f"탐색성공, key = {result}")
     end_time = time.time() - start_time
     d.check(keys, end_time)
+
+# if __name__ == "__main__":
+#     data = 30000
+#     d = RadixSearchTrie(data)
+#     keys = list(range(1, data+1))
+#     for i in keys:
+#         d.insert(i)
+#     start_time = time.time()
+#     for i in keys:
+#         if d.search(i) != i:
+#             print("error")
+#     end_time = time.time() - start_time
+#     print(f'내 기수 탐색 트라이 코드(N= {data}) : {end_time:.3f}')

@@ -1,6 +1,5 @@
 from init import *
 import time
-import random
 
 
 class Patricia(Tree):
@@ -9,19 +8,19 @@ class Patricia(Tree):
     Tree를 상속받습니다. Tree에 대한 정보는 Tree.__doc__ 명령어를 사용해주세요.
     """
 
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, data_size) -> None:
+        super().__init__(data_size)
         self.head.left = self.head
         self.head.right = self.head
 
     def __bitcmp(self, binary: str, bit: int, cmp_num: str) -> bool:
-        # 헤드노드일 경우 True 리턴
-        if bit == maxb:
+        try:
+            if binary[bit] == cmp_num:
+                return True
+            else:
+                return False
+        except:
             return True
-        elif binary[bit] == cmp_num:
-            return True
-        else:
-            return False
 
     def insert(self, key: int) -> int:
         """
@@ -29,16 +28,16 @@ class Patricia(Tree):
 
         Args:
 
-            key (int): 노드의 key값을 넣기 위한 파라미터입니다. 
+            key (int): 노드의 key값을 넣기 위한 파라미터입니다.
 
-        Returns:
+        Returns:2
             0 : Success
             -2 : Fail
         """
         p: Node = self.head
         x: Node = p.right
-        temp_node: Node = Node(key)
-        i: int = maxb - 1
+        temp_node: Node = Node(key, self.maxb)
+        i: int = self.maxb - 1
         try:
             # 비교인덱스(compare)만을 비교하며 트리를 따라 내려가는 반복문
             # upward link를 만날 때 까지 반복
@@ -94,10 +93,10 @@ class Patricia(Tree):
             -1: Search Failed
             -2: Search Error
         """
-        p: Node = self.head
-        x: Node = p.right
-        bin_skey = Node.key_to_bin(Node, search_key)[::-1]
         try:
+            p: Node = self.head
+            x: Node = p.right
+            bin_skey = self.head.key_to_bin(search_key)[::-1]
             while p.compare > x.compare:
                 p = x
                 if self.__bitcmp(bin_skey, x.compare, "1"):
@@ -118,7 +117,7 @@ class Patricia(Tree):
         print(key_list)
         for key in sorted(key_list):
             p = x = self.head.right
-            bin_key = Node.key_to_bin(Node, key)[::-1]
+            bin_key = self.head.key_to_bin(key)[::-1]
             for i in range(len(bin_key)-1, -1, -1):
                 if x.key == key:
                     print(f"key: {x.key}, parents: {p.key}")
@@ -135,12 +134,18 @@ class Patricia(Tree):
 
 
 if __name__ == "__main__":
-    d = Patricia()
+    # data = 30000
+    d = Patricia(26)
+    # d = Patricia(data)
     keys = [1, 19, 5, 18, 3, 26, 9]
+    # keys = list(range(1, data+1))
     for i in keys:
         d.insert(i)
     start_time = time.time()
     for i in keys:
-        d.search(i)
+        if d.search(i) != i:
+            print("error")
+
     end_time = time.time() - start_time
     d.check(keys, end_time)
+    # print(f'내 패트리샤 트리 코드 (N= {data}) : {end_time:.3f}')

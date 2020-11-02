@@ -1,6 +1,5 @@
 from abc import ABCMeta, abstractmethod
 
-maxb = 5
 ERROR = -2
 FAIL = -1
 SUCCESS = 0
@@ -15,9 +14,10 @@ class Node:
         left (Node): 이진 트리로 연결되며 자신의 왼쪽 자식노드를 가리킵니다.
         right (Node): 이진 트리로 연결되며 자신의 오른쪽 자식노드를 가리킵니다.
         binkey (str): key값에 따른 이진수를 문자열입니다.
+        compare (int): 패트리샤 트리에서 비교할 인덱스를 나타내는 정수
     """
 
-    def __init__(self, key: int, left=None, right=None, compare: int = maxb):
+    def __init__(self, key: int, compare: int, left=None, right=None):
         """
         노드를 초기화 해주는 함수입니다.
 
@@ -26,7 +26,6 @@ class Node:
             key (int): 노드의 데이터로 들어갈 값
             left (node): 자신의 자식노드 중 왼쪽 노드
             right (node): 자신의 자식노드 중 오른쪽 노드
-            binkey (str): key값의 5자리 2진수 문자열
             compare (int): 패트리샤 트리에서 비교할 인덱스를 나타내는 정수
 
 
@@ -37,8 +36,8 @@ class Node:
         self.__key = key
         self.__left = left
         self.__right = right
-        self.__binkey = self.key_to_bin(key)[::-1]
         self.__compare = compare
+        self.__binkey = self.key_to_bin(key)[::-1]
 
     @property
     def key(self):
@@ -65,14 +64,6 @@ class Node:
         self.__right = right
 
     @property
-    def binkey(self):
-        return self.__binkey
-
-    @binkey.setter
-    def binkey(self, binkey):
-        self.__binkey = binkey
-
-    @property
     def compare(self):
         return self.__compare
 
@@ -80,12 +71,20 @@ class Node:
     def compare(self, compare):
         self.__compare = compare
 
+    @property
+    def binkey(self):
+        return self.__binkey
+
+    @binkey.setter
+    def binkey(self, binkey):
+        self.__binkey = binkey
+
     def key_to_bin(self, key: int) -> str:
         """
         key값을 5자리의 2진수 형태로 나타내어 보여줍니다.    
         """
         temp_num = bin(key)[2:]
-        return "0" * (maxb - len(temp_num)) + temp_num  # 5자리의 2진수로 수정
+        return "0" * (self.compare - len(temp_num)) + temp_num  # 5자리의 2진수로 수정
 
 
 class Tree():
@@ -96,8 +95,9 @@ class Tree():
         head (Node): 트리에서 루트가 되는 속성입니다.
     """
 
-    def __init__(self) -> None:
-        self.head: Node = Node(0)
+    def __init__(self, data_size) -> None:
+        self.maxb: int = len(bin(data_size)[2:])
+        self.head: Node = Node(0, self.maxb)
 
     @abstractmethod
     def insert(self, key: int) -> int:

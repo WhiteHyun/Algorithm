@@ -1,3 +1,4 @@
+import random
 from init import *
 import time
 
@@ -134,18 +135,17 @@ class Patricia(Tree):
 
 
 if __name__ == "__main__":
-    # data = 30000
-    d = Patricia(26)
-    # d = Patricia(data)
-    keys = [1, 19, 5, 18, 3, 26, 9]
-    # keys = list(range(1, data+1))
-    for i in keys:
-        d.insert(i)
+    N = 30000
+    key = list(range(1, N+1))
+    s_key = list(range(1, N+1))
+    # random.shuffle(key)
+    d = Patricia(N)
+    for i in range(N):
+        d.insert(key[i])
     start_time = time.time()
-    for i in keys:
-        if d.search(i) != i:
-            print("error")
-
+    for i in range(N):
+        result = d.search(s_key[i])
+        if result != s_key[i]:
+            print('탐색 오류')
     end_time = time.time() - start_time
-    d.check(keys, end_time)
-    # print(f'내 패트리샤 트리 코드 (N= {data}) : {end_time:.3f}')
+    print(f'내 패트리샤 트리의 실행시간 N = {N} : {end_time:.3f}')

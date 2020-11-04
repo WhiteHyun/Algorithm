@@ -88,7 +88,7 @@ class RadixSearchTrie(Tree):
             -1: Search Failed
             -2: Search Error
         """
-        # 탐색키의 5자리 이진수 문자열
+        # 탐색키의 maxb만큼의 이진수 문자열을 구함
         bin_search_key: str = self.head.key_to_bin(search_key)
         x: Node = self.head.right   # 탐색노드
         p_node: Node = self.head  # 탐색노드의 부모노드
@@ -134,7 +134,7 @@ class RadixSearchTrie(Tree):
 
 if __name__ == "__main__":
     d = RadixSearchTrie(26)
-    keys = [1, 19, 5, 18, 3, 26, 9]
+    keys = [19, 5, 18, 3]
     for i in keys:
         result = d.insert(i)
         if result == -2:
@@ -142,12 +142,7 @@ if __name__ == "__main__":
     start_time = time.time()
     for i in keys:
         result = d.search(i)
-        # if result == -2:
-        #     print("탐색오류발생")
-        # elif result == -1:
-        #     print("탐색실패")
-        # else:
-        #     print(f"탐색성공, key = {result}")
+
     end_time = time.time() - start_time
     d.check(keys, end_time)
 

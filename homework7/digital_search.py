@@ -99,25 +99,25 @@ class DigitalSearch(Tree):
 =================================================================""")
 
 
+# if __name__ == "__main__":
+    # d = DigitalSearch(26)
+    # keys = [1, 19, 5, 18, 3, 26, 9]
+    # for i in keys:
+    #     d.insert(i)
+    # start_time = time.time()
+    # for i in keys:
+    #     d.search(i)
+    # end_time = time.time() - start_time
+    # d.check(keys, end_time)
 if __name__ == "__main__":
-    d = DigitalSearch(26)
-    keys = [1, 19, 5, 18, 3, 26, 9]
+    data = 30000
+    d = DigitalSearch(data)
+    keys = list(range(1, data+1))
     for i in keys:
         d.insert(i)
     start_time = time.time()
     for i in keys:
-        d.search(i)
+        if d.search(i) != i:
+            print("error")
     end_time = time.time() - start_time
-    d.check(keys, end_time)
-# if __name__ == "__main__":
-#     data = 30000
-#     d = DigitalSearch(data)
-#     keys = list(range(1, data+1))
-#     for i in keys:
-#         d.insert(i)
-#     start_time = time.time()
-#     for i in keys:
-#         if d.search(i) != i:
-#             print("error")
-#     end_time = time.time() - start_time
-#     print(f'내 디지털 탐색 트리 코드(N= {data}) : {end_time:.3f}')
+    print(f'내 디지털 탐색 트리 코드(N= {data}) : {end_time:.3f}')

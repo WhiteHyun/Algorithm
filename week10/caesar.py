@@ -22,14 +22,16 @@ def decipher(p, k):
         t = a - k
         if t < 64:
             t += 27
+        if t == 64:
+            t = 32
 
         c += chr(t)
     return c
 
 
 # plain_text = "ABCDEFG HIJKLMN OPQRSTU VWXYZ"
-plain_text = "VWXYZ"
-K = 7
+plain_text = ' ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+K = 3
 print('평문: ', plain_text)
 cipherText = encipher(plain_text, K)
 print('암호문: ', cipherText)

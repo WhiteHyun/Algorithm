@@ -21,7 +21,7 @@ class PQ:
                 break
 
             self.heap[i] = self.heap[int(i / 2)]
-            self.heap[i] = self.info[int(i / 2)]
+            self.info[i] = self.info[int(i / 2)]
             i = int(i / 2)
 
         self.heap[i] = v
@@ -61,9 +61,9 @@ def makeHuffman(t, m):
 
     for i in range(27):
         if count[i]:
-            pq.insert(count[i], 1)
+            pq.insert(count[i], i)
 
-    i += 1
+    i = 27
     while not pq.isEmpty():
         t1 = pq.remove()
         t2 = pq.remove()
@@ -125,3 +125,5 @@ pq = PQ()
 
 makeHuffman(text, M)
 encode(text, M)
+print()
+print(pq.heap)

@@ -5,4 +5,8 @@ if __name__ == "__main__":
     # text = 'VISION QUESTION ONION CAPTION GRADUATION EDUCATION'
     d = Huffman(text)
     name = d.encode()
-    print(d.decode(name))
+    print("---------encoded text---------")
+    for i in range(0, len(name), 50):
+        print(name[i:i+50])
+    print("------------------------------")
+    print(f"decode(encode_text) = {d.decode(name)}")

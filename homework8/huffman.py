@@ -11,10 +11,10 @@ class Heap:
     """
 
     def __init__(self, count: list) -> None:
-        self.__heap = [0]*100
-        self.__info = [0]*100
+        self.__heap = [0]*50
+        self.__info = [0]*50
         self.__size = 0
-        for index in range(0, len(count)):
+        for index in range(0, CHAR_LENGTH):
             if count[index] == 0:
                 continue
             self.insert(count[index], index)
@@ -99,12 +99,12 @@ class Huffman():
     def __init__(self, text: str) -> None:
         self.__text: str = text
         self.__count = self.__get_frequency(text)
-        self.__parent = [0]*100
+        self.__parent = [0]*50
         self.__heap = Heap(self.__count)
         self.__code = [0]*27
         self.__length = [0]*27
-        self.end = self.__make_trie()
-        # self.__make_code_and_length()
+        self.__end = self.__make_trie()
+        self.__make_code_and_length()
 
     @property
     def text(self):
@@ -147,7 +147,7 @@ class Huffman():
             count (list): 각 문자에 따른 빈도수를 구한 리스트입니다.
 
         """
-        count = [0]*100
+        count = [0]*50
         for i in text:
             count[self.__get_index(i)] += 1  # 빈도수 구함
         return count
@@ -169,7 +169,7 @@ class Huffman():
             if not self.heap.is_empty():
                 self.heap.insert(self.__count[i], i)
             i += 1
-        return i
+        return i - 1
 
     def __make_code_and_length(self):
         """
@@ -195,26 +195,35 @@ class Huffman():
     def encode(self):
         encoding_text = ""
         for i in self.__text:
-            l = self.__length[self.__get_index(i)]
+            l = self.__length[self.__get_index(i)]  # 코드값에 따른 길이 리스트
             while l != 0:
                 encoding_text += str((self.__code[self.__get_index(i)]
                                       >> l - 1) & 1)
                 l -= 1
         return encoding_text
 
-    def decode(self):
+    def decode(self, encoding_text: str):
         """
         encode된 텍스트를 decode하여 읽을 수 있는 본 텍스트로 리턴합니다.
         """
         decoding_text = ""
+        i = 0
+        end = self.__end  # 초기 디코드 세팅값
+        while i < len(encoding_text):
+            if encoding_text[i] == "1":  # 1이면 음수를 붙혀주어야함
+                end = -end
+            end = self.__parent.index(end)  #
+            if end < CHAR_LENGTH:   # 문자노드를 만났을 경우
+                # 해당되는 알파벳 또는 spacing 문자 넣어줌
+                decoding_text += chr(end + 64) if end != 0 else " "
+                end = self.__end  # end를 초기 값으로 세팅
+            i += 1
+
+        return decoding_text
 
 
 if __name__ == "__main__":
-    # text = "A SIMPLE STRING TO BE ENCODED USING A MINIMAL NUMBER OF BITS"
-    text = 'VISION QUESTION ONION CAPTION GRADUATION EDUCATION'
+    text = "A SIMPLE STRING TO BE ENCODED USING A MINIMAL NUMBER OF BITS"
+    # text = 'VISION QUESTION ONION CAPTION GRADUATION EDUCATION'
     d = Huffman(text)
-    print(d.heap.info)
-    print(d.heap.heap)
-    print(d.parent)
-    print(d.heap.info[d.end-1])
-    # print(d.count)
+    name = d.encode()

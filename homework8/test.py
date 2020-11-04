@@ -112,8 +112,8 @@ def encode(t, m):
             print()
 
 
-# text = 'A SIMPLE STRING TO BE ENCODED USING A MINIMAL NUMBER OF BITS'
-text = 'VISION QUESTION ONION CAPTION GRADUATION EDUCATION'
+text = 'A SIMPLE STRING TO BE ENCODED USING A MINIMAL NUMBER OF BITS'
+# text = 'VISION QUESTION ONION CAPTION GRADUATION EDUCATION'
 
 count = [0] * 100
 dad = [0] * 100
@@ -125,5 +125,3 @@ pq = PQ()
 
 makeHuffman(text, M)
 encode(text, M)
-print()
-print(pq.heap)

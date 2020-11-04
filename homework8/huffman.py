@@ -94,6 +94,8 @@ class Huffman():
         count (list): text에서 각 문자당 빈도수 나타내는 리스트입니다.
         parent (list): 허프만 트라이가 구현되었을 때 인덱스마다 각 노드의 부모인덱스를 가리킵니다. 자신이 부모노드의 왼쪽자식이면 양수, 오른쪽자식이면 음수로 나타냅니다.
         heap (Heap): 힙 트리를 구성합니다. 힙에 대해서는 Heap.__doc__() 명령어로 알아보실 수 있습니다.
+        code (list): encoding에
+        length (list):
     """
 
     def __init__(self, text: str) -> None:
@@ -155,6 +157,9 @@ class Huffman():
     def __make_trie(self):
         """
         허프만 트리를 구축합니다. 기수 탐색 트라이의 개념으로 접근하여 만들어집니다.
+
+        Returns:
+            i-1 (int): 트라이의 가장 끝 인덱스를 나타냅니다. decode에서 사용되어집니다.
         """
         i = CHAR_LENGTH
         while not self.heap.is_empty():
@@ -212,7 +217,8 @@ class Huffman():
         while i < len(encoding_text):
             if encoding_text[i] == "1":  # 1이면 음수를 붙혀주어야함
                 end = -end
-            end = self.__parent.index(end)  #
+            # end값을 가지고 있는 parent의 인덱스를 리턴하여 다시 end에 저장
+            end = self.__parent.index(end)
             if end < CHAR_LENGTH:   # 문자노드를 만났을 경우
                 # 해당되는 알파벳 또는 spacing 문자 넣어줌
                 decoding_text += chr(end + 64) if end != 0 else " "
@@ -220,10 +226,3 @@ class Huffman():
             i += 1
 
         return decoding_text
-
-
-if __name__ == "__main__":
-    text = "A SIMPLE STRING TO BE ENCODED USING A MINIMAL NUMBER OF BITS"
-    # text = 'VISION QUESTION ONION CAPTION GRADUATION EDUCATION'
-    d = Huffman(text)
-    name = d.encode()

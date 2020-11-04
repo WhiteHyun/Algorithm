@@ -21,8 +21,8 @@
 
 ### Third Party library
 
-- matplotlib
-- numpy
+- [matplotlib](https://matplotlib.org/)
+- [numpy](https://numpy.org/)
 
 ### 라이선스(License)
 

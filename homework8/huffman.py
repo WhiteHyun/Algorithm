@@ -31,7 +31,7 @@ class Heap:
     def size(self):
         return self.__size
 
-    def insert(self, count: int, index: int):
+    def insert(self, count: int, index: int) -> None:
         """
         최소 힙을 갖추며 데이터를 삽입합니다.
         """
@@ -96,8 +96,8 @@ class Huffman():
                        자신이 부모노드의 왼쪽자식이면 양수, 오른쪽자식이면 음수로 나타냅니다.
                        속칭 dad라고도 불리웁니다.
         heap (Heap): 힙 트리를 구성합니다. 힙에 대해서는 Heap.__doc__() 명령어로 알아보실 수 있습니다.
-        code (list): encoding에
-        length (list):
+        code (list): encoding에 해당되는 각각의 문자 코드를 의미합니다.
+        length (list): encoding된 코드에서 사용될 길이를 의미합니다. 코드보다 길이가 길 경우 0으로 대체하여 길이를 맞춥니다.
     """
 
     def __init__(self, text: str) -> None:
@@ -156,7 +156,7 @@ class Huffman():
             count[self.__get_index(i)] += 1  # 빈도수 구함
         return count
 
-    def __make_trie(self):
+    def __make_trie(self) -> int:
         """
         허프만 트리를 구축합니다. 기수 탐색 트라이의 개념으로 접근하여 만들어집니다.
 
@@ -178,7 +178,7 @@ class Huffman():
             i += 1
         return i - 1
 
-    def __make_code_and_length(self):
+    def __make_code_and_length(self) -> None:
         """
         구현된 트라이를 가지고 코드와 길이를 구합니다.
         """
@@ -201,7 +201,7 @@ class Huffman():
             self.__code[i] = code
             self.__length[i] = length
 
-    def encode(self):
+    def encode(self) -> str:
         encoding_text = ""
         for i in self.__text:
             l = self.__length[self.__get_index(i)]  # 코드값에 따른 길이 리스트
@@ -211,7 +211,7 @@ class Huffman():
                 l -= 1
         return encoding_text
 
-    def decode(self, encoding_text: str):
+    def decode(self, encoding_text: str) -> str:
         """
         encode된 텍스트를 decode하여 읽을 수 있는 본 텍스트로 리턴합니다.
         """

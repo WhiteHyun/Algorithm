@@ -1,8 +1,0 @@
-exchange_sort(a[], n)
-    for (i ← 1; i < n; i ← i + 1) do {
-        for (j ← i + 1; j ≤ n; j ← j + 1) do {
-            if (a[i] < a[j]) do then change
-        }
-    }
-end exchange_sort()
-

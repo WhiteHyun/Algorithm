@@ -24,6 +24,6 @@
 - [matplotlib](https://matplotlib.org/)
 - [numpy](https://numpy.org/)
 
-### 라이선스(License)
+### 코드 출처
 
-- 해당 레포지토리는 [다음](/LICENSE)의 라이선스를 따릅니다.
+- 해당 레포지토리의 모듈 및 패키지는 [potados99 레포지토리](https://github.com/potados99/algorithm)를 차용하였습니다.

@@ -19,8 +19,8 @@ def counting_sort(collection, verbose=False):
         >>> counting_sort([6, 5, 4, 3, 2, 1])
         [1, 2, 3, 4, 5, 6]
 
-        >>> counting_sort([-154, -91, -27])
-        [-154, -91, -27]
+        >>> counting_sort([1, 2, 2, 1, 3, 4, 4, 1])
+        [1, 1, 1, 2, 2, 3, 4, 4]
 
         >>> counting_sort([])
         []

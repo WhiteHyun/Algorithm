@@ -19,6 +19,7 @@ def insertion_sort(collection, verbose=False):
         >>> selection_sort([])
         []
     """
+
     for i in range(1, len(collection)):
         if verbose:
             print(f"Rotation {i + 1}")

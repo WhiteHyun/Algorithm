@@ -10,13 +10,13 @@ def bubble_sort(collection, verbose=False):
         list: 정렬된 리스트
 
     Example:
-        >>> selection_sort([6, 5, 4, 3, 2, 1])
+        >>> bubble_sort([6, 5, 4, 3, 2, 1])
         [1, 2, 3, 4, 5, 6]
 
-        >>> selection_sort([-154, -91, -27])
+        >>> bubble_sort([-154, -91, -27])
         [-154, -91, -27]
 
-        >>> selection_sort([])
+        >>> bubble_sort([])
         []
     """
 

@@ -6,15 +6,18 @@ else:
 
 
 def max_heapify(collection, root, heap_size):
-    """Make it a max heap.
-    Assume that subtrees are max heap.
-    This is a bottom-up approach, so it requires subtrees to be heapified.
+    """최대 힙으로 만들어준다.
+    서브트리가 최대힙이라 가정했을 때
+    상향식 접근법이기 때문에 서브 트리를 히프화 해야한다.
+
     Args:
-        collection (list): Partially heapified tree.
-        root (int): Index of node to use as root node.
-        heap_size (int): Size of heap to apply heapify.
+        collection (list): 부분적인 히프화 트리
+        root (int): 루트 노드로 사용할 노드 인덱스
+        heap_size (int): 히프화를 적요하기 위한 힙의 크기
+
     Returns:
-        list: The heapified collection.
+        list: 히프화된 리스트
+
     Example:
         >>> max_heapify([3, 2, 5, 6, 8], 0, 3)
         [5, 2, 3, 6, 8]
@@ -46,12 +49,16 @@ def max_heapify(collection, root, heap_size):
 
 
 def heap_sort(collection, verbose=False):
-    """Implementation of heap sort in Python.
+    """
+    힙 정렬 알고리즘
+
     Args:
-        collection (list): Input to sort.
-        verbose (bool): Print every rotation if true.
+        collection (list): 유저로부터 입력받은 정렬하기 전 리스트
+        verbose (bool): 과정들을 출력하기 위한 flag
+
     Returns:
-        list: The same as the collection, with sort ascending applied.
+        list: 정렬된 리스트
+
     Example:
         >>> heap_sort([3, 1, 7, 0, 4, 8, 2])
         [0, 1, 2, 3, 4, 7, 8]
@@ -62,7 +69,7 @@ def heap_sort(collection, verbose=False):
     """
 
     size = len(collection)
-    last_subtree_root = (size << 1) - 1
+    last_subtree_root = (size >> 1) - 1
 
     # 1. Build max heap.
     if verbose:

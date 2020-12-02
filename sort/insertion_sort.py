@@ -1,6 +1,6 @@
 def insertion_sort(collection, verbose=False):
     """
-    버블정렬 알고리즘
+    삽입정렬 알고리즘
 
     Args:
         collection (list): 유저로부터 입력받은 정렬하기 전 리스트

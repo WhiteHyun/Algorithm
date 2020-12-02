@@ -8,12 +8,15 @@ else:
 def partition(collection: list, left: int, right: int) -> int:
     """Make left partition le pivot, right partition ge pivot.
     The pivot is selected by picking mid-index.
+
     Args:
         collection (list): Whole data.
         left (int): Index of start of left partition.
         right (int): Index of end of right partition.
+
     Returns:
         int: Index of the pivot.
+
     Example:
         >>> partition([9, 8, 7, 6, 5, 4, 3, 2, 1], 3, 6)
         5

@@ -13,5 +13,9 @@ def average(collection: list) -> float:
     return sum(collection) / len(collection)
 
 
+def copy_list(origin):
+    return copy.deepcopy(origin)
+
+
 def swap(list, a, b):
     list[a], list[b] = list[b], list[a]

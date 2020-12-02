@@ -22,7 +22,7 @@ def selection_sort(collection, verbose=False):
 
     for i in range(len(collection) - 1):
         if verbose:
-            print(f"Rotation {str(i + 1)}")
+            print(f"Rotation {i + 1}")
 
         min_index = i
 

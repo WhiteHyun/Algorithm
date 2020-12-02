@@ -22,7 +22,7 @@ def partition(collection: list, left: int, right: int) -> int:
         5
     """
 
-    # mid 인덱스를 리스트 오른쪽 인덱스에 둔다.
+    # mid를 인덱스로 하는 리스트값을 오른쪽 인덱스의 리스트값과 바꾼다.
     mid = (left + right) // 2
     swap(collection, mid, right)
 
@@ -76,7 +76,7 @@ def quick_sort(collection, verbose=False):
             continue
 
         if verbose:
-            print(f"{'     '*len(stack)}Partition {collection[l:r+1]}", end="")
+            print(f"{'    '*len(stack)}Partition {collection[l:r+1]}", end="")
         p = partition(collection, l, r)
         if verbose:
             print(f", pivot: {collection[p]}")

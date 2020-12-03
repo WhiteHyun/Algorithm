@@ -82,7 +82,7 @@ def quick_sort(collection, verbose=False):
             print(f", pivot: {collection[p]}")
 
         # Elements on left
-        if l < p-1:
+        if l < p - 1:
             stack.append(l)
             stack.append(p - 1)
 

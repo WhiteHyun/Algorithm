@@ -102,6 +102,8 @@ def shell_sort(collection, verbose=False):
 
         # Number of subarrays: gap
         for i in range(gap + 1):
+            if i + gap >= size:
+                break
             subarray_insertion_sort(collection, i, size - 1, gap, verbose)
 
         gap = (gap - 1) // 3

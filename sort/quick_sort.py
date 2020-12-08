@@ -6,37 +6,38 @@ else:
 
 
 def partition(collection: list, left: int, right: int) -> int:
-    """Make left partition le pivot, right partition ge pivot.
-    The pivot is selected by picking mid-index.
+    """pivot값은 가장 오른쪽으로 설정 
 
     Args:
-        collection (list): Whole data.
-        left (int): Index of start of left partition.
-        right (int): Index of end of right partition.
+        collection (list): 전체 데이터
+        left (int): 파티션의 왼쪽 시작 인덱스
+        right (int): 파티션의 오른쪽 끝 인덱스
 
     Returns:
-        int: Index of the pivot.
+        int: 피봇 인덱스
 
     Example:
         >>> partition([9, 8, 7, 6, 5, 4, 3, 2, 1], 3, 6)
         5
     """
 
-    # mid를 인덱스로 하는 리스트값을 오른쪽 인덱스의 리스트값과 바꾼다.
-    mid = (left + right) // 2
-    swap(collection, mid, right)
-
     pivot = collection[right]
-    i = left - 1
-
-    for j in range(left, right):
-        if collection[j] < pivot:
+    i = left
+    j = right - 1
+    while True:
+        while collection[i] < pivot:
             i += 1
-            swap(collection, i, j)
+        while collection[j] > pivot:
+            j -= 1
 
-    swap(collection, i + 1, right)
+        if i >= j:
+            break
 
-    return i + 1
+        swap(collection, i, j)
+
+    swap(collection, i, right)
+
+    return i
 
 
 def quick_sort(collection, verbose=False):
@@ -80,16 +81,17 @@ def quick_sort(collection, verbose=False):
         p = partition(collection, l, r)
         if verbose:
             print(f", pivot: {collection[p]}")
-
-        # Elements on left
-        if l < p - 1:
-            stack.append(l)
-            stack.append(p - 1)
+        print(f"{'    '*len(stack)}Sorted {collection}")
 
         # Elements on right
         if p + 1 < r:
             stack.append(p + 1)
             stack.append(r)
+
+        # Elements on left
+        if l < p - 1:
+            stack.append(l)
+            stack.append(p - 1)
 
     return collection
 

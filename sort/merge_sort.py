@@ -57,14 +57,17 @@ def merge(collection, left, middle, right, verbose=False, level=0):
 
 def merge_sort_recursive(collection, left, right, verbose=False, level=0):
     """재귀적 방법으로 구현된 합병 정렬
+
         Args:
             collection (list): The collection to sort.
             left (int): Most left index of collection to sort.
             right (int): Most right index of collection to sort.
             verbose (bool): Print steps or not.
             level (int): Indent level. Used to distinguish call depth.
+
         Returns:
             list: The sorted collection.
+
         Example:
             >>> merge_sort_recursive([4, 7, 8, 2, 5], 0, 4, False)
             [2, 4, 5, 7, 8]

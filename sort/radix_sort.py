@@ -6,7 +6,7 @@ else:
 
 def radix_sort(collection, verbose=False):
     """
-    계수정렬 알고리즘
+    기수정렬 알고리즘
     자리수를 맞추어 입력하여야 한다.
 
     Args:

@@ -1,16 +1,24 @@
-def round_odd(number):
-    """짝수일 경우 홀수로 반올림한다.
+def get_gap(number):
+    """shell sort의 h값을 구한다.
+
     Args:
         number (int): 반올림할 수
+
     Returns:
         int: 홀수로 반올림된 수
+
     Example:
-        >>> round_odd(3)
-        3
-        >>> round_odd(4)
-        5
+        >>> get_gap(3)
+        1
+        >>> get_gap(5)
+        4
+        >>> get_gap(15)
+        13
     """
-    return number + 1 if number % 2 == 0 else number
+    gap = 1
+    while gap < number:
+        gap = gap * 3 + 1
+    return (gap - 1) // 3
 
 
 def subarray_insertion_sort(collection, first, last, gap, verbose=False):
@@ -83,22 +91,20 @@ def shell_sort(collection, verbose=False):
         >>> shell_sort([])
         []
     """
-
+    #1, 4, 13, 40
     size = len(collection)
-    gap = round_odd(size >> 1)
+    gap = get_gap(size)
     rotation = 1
 
     while gap > 0:
         if verbose:
             print(f"Rotation {rotation}")
 
-        gap = round_odd(gap)
-
         # Number of subarrays: gap
         for i in range(gap + 1):
             subarray_insertion_sort(collection, i, size - 1, gap, verbose)
 
-        gap = gap >> 1
+        gap = (gap - 1) // 3
         rotation += 1
     return collection
 

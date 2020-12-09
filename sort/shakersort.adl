@@ -1,0 +1,20 @@
+shake_sort(a[], n)
+    r ← n;
+    l ← 1;
+    i ← 1;
+    while (l < r) do {
+        if (i % 2 == 1) do {
+            for (j ← l + 1; j ≤ r; j ← j + 1) do {
+                if (arr[j] < arr[j-1]) then change them
+            }
+            r ← r - 1;
+        }
+        else do {
+            for (k ← r; k > l; k ← k - 1) do {
+                if (arr[k] < arr[k-1]) then change them
+            }
+            l ← l + 1;
+        }
+        i ← i + 1;
+    }
+end shake_sort()

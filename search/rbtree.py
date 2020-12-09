@@ -217,4 +217,4 @@ if __name__ == "__main__":
 
     def search(key, verbose): return True if tree.search(
         int(key), verbose) is not None else False
-    from_input(insert, search)
+    from_input(insert, search, True)

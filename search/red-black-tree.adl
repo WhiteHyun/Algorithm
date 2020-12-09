@@ -1,0 +1,71 @@
+black ← 0;
+red ← 1;
+insert(T, v)
+    // p : x의 부모 노드, g : x의 조부모 노드, gg : x의 증조부모 노드
+    x ← T;
+    p ← T;
+    g ← T;
+    while (x ≠ null) do {
+        gg ← g;
+        g ← p;
+        p ← x;
+        if (x.key = v) then return;
+        if (x.key > v) then x ← x.left;
+        else x ← x.right;
+        if ((x.left.color = red) and (x.right.color = red)) then
+            split(x, p, g, gg, v);
+    }
+    x ← color가 red이고 key 값이 v인 새로운 노드;
+    if (p.key > v) then p.left ← x;
+    else p.right ← x;
+    split(x, p, g, gg, v);
+end insert()
+
+split(x, p, g, gg, v)
+    x.color ← red;
+    x.left.color ← black;
+    x.right.color ← black;
+    if (p.color = red) then {
+        g.color ← red;
+        if ((g.key > v) ≠ (p.key > v)) then
+            p ← rotate(v, g);
+        x ← rotate(v, gg);
+        x.color ← black;
+    }
+end split()
+
+rotate(v, y)
+    // c : y의 자식 노드, gc : y의 손주 노드
+    c ← y;
+    gc ← y;
+    if (y.left.color = red) then c ← y.left;
+    else then c ← y.right;
+    if (c.left.color = red) then gc ← c.left;
+    else then gc ← c.right;
+    
+    //왼쪽 단일 회전일 경우
+    if ((y.left = c) and (c.left = gc)) then {
+        c.left ← gc.right;
+        gc.right ← c;
+        y.left ← gc;
+    }
+    //오른쪽 단일 회전일 경우
+    if ((y.right = c) and (c.right = gc)) then {
+        c.right ← gc.left;
+        gc.left ← c;
+        y.right ← gc;
+    }
+    //왼-오 이중 회전일 경우
+    if ((y.left = c) and (c.right = gc)) then {
+        c.right ← gc.left;
+        gc.left ← c;
+        y.left ← gc;
+    }
+    //오-왼 이중 회전일 경우
+    if ((y.right = c) and (c.left = gc)) then {
+        c.left ← gc.right;
+        gc.right ← c;
+        y.right ← gc;
+    }    
+    return gc;
+end rotate()

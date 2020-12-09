@@ -13,7 +13,7 @@ def max_heapify(collection, root, heap_size):
     Args:
         collection (list): 부분적인 히프화 트리
         root (int): 루트 노드로 사용할 노드 인덱스
-        heap_size (int): 히프화를 적요하기 위한 힙의 크기
+        heap_size (int): 히프화를 적용하기 위한 힙의 크기
 
     Returns:
         list: 히프화된 리스트

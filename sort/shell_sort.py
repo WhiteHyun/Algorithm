@@ -1,5 +1,6 @@
 def get_gap(number):
-    """shell sort의 h값을 구한다.
+    """
+    shell sort의 h값을 구한다.
 
     Args:
         number (int): 반올림할 수
@@ -22,7 +23,8 @@ def get_gap(number):
 
 
 def subarray_insertion_sort(collection, first, last, gap, verbose=False):
-    """gap에 따른 삽입 정렬
+    """
+    gap에 따른 삽입 정렬
 
     Args:
         collection (list): 입력받은 정렬 리스트
@@ -56,13 +58,11 @@ def subarray_insertion_sort(collection, first, last, gap, verbose=False):
                 break
 
             collection[j + gap] = collection[j]
-            if verbose:
-                print(collection)
 
         collection[j + gap] = temp
 
         if verbose:
-            print(collection)
+            print(f"    {collection}")
 
         rotation += 1
 

@@ -6,7 +6,8 @@ else:
 
 
 def partition(collection: list, left: int, right: int) -> int:
-    """pivot값은 가장 오른쪽으로 설정 
+    """
+    pivot값은 가장 오른쪽으로 설정 
 
     Args:
         collection (list): 전체 데이터
@@ -18,7 +19,7 @@ def partition(collection: list, left: int, right: int) -> int:
 
     Example:
         >>> partition([9, 8, 7, 6, 5, 4, 3, 2, 1], 3, 6)
-        5
+        3
     """
 
     pivot = collection[right]

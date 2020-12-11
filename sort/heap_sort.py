@@ -6,14 +6,16 @@ else:
 
 
 def max_heapify(collection, root, heap_size):
-    """최대 힙으로 만들어준다.
+    """
+    최대 힙으로 만들어준다.
+
     서브트리가 최대힙이라 가정했을 때
     상향식 접근법이기 때문에 서브 트리를 히프화 해야한다.
 
     Args:
         collection (list): 부분적인 히프화 트리
         root (int): 루트 노드로 사용할 노드 인덱스
-        heap_size (int): 히프화를 적요하기 위한 힙의 크기
+        heap_size (int): 히프화를 적용하기 위한 힙의 크기
 
     Returns:
         list: 히프화된 리스트

@@ -6,6 +6,8 @@ else:
 
 class RBTree:
     """
+    레드블랙트리 알고리즘
+
     >>> RBTree.insert_test()
     "Success"
     """
